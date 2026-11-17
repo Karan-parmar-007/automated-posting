@@ -1,0 +1,69 @@
+{
+  "scenario": "01-all-success",
+  "description": "All 5 platforms configured correctly",
+  "broken_settings": [],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "Launch week is here: our new analytics dashboard helps small teams track growth in real time. https://example.com/launch"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "success",
+          "posted_url": "https://mastodon.social/@karansp/117630644793754070",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:39:57",
+          "error": null
+        },
+        {
+          "platform": "Bluesky",
+          "status": "success",
+          "posted_url": "https://bsky.app/profile/karansp.bsky.social/post/3n2ik263e4r2x",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:39:57",
+          "error": null
+        },
+        {
+          "platform": "Telegram",
+          "status": "success",
+          "posted_url": "https://t.me/utopost_bot/3",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:39:56",
+          "error": null
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "success",
+          "posted_url": "https://gist.github.com/Karan-parmar-007/936bcd63c72a4676465079952a0745c1",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:39:57",
+          "error": null
+        },
+        {
+          "platform": "DEV Community",
+          "status": "success",
+          "posted_url": "https://dev.to/karan_parmar_3f59dae0251e/real-time-growth-tracking-for-small-teams-3a22",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:39:56",
+          "error": null
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:39:56,083 INFO app.services.content_service: LLM gemini metadata: title='Real Time Growth Tracking For Small Teams' hashtags=['LaunchWeek', 'Analytics', 'SmallBusiness']",
+    "2026-11-17 07:39:58,384 INFO app.services.posting_service: Posted to 5/5 platforms in 6.35s (LLM: gemini)"
+  ]
+}

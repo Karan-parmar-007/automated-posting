@@ -1,0 +1,73 @@
+{
+  "scenario": "03-fail-bluesky",
+  "description": "Bluesky: wrong app password",
+  "broken_settings": [
+    "BLUESKY_APP_PASSWORD"
+  ],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "We just published a practical guide to automating your social media workflow. Read it here https://example.com/guide"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "success",
+          "posted_url": "https://mastodon.social/@karansp/117630645664914319",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:10",
+          "error": null
+        },
+        {
+          "platform": "Bluesky",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Authentication failed: AuthenticationRequired: Invalid identifier or password"
+        },
+        {
+          "platform": "Telegram",
+          "status": "success",
+          "posted_url": "https://t.me/utopost_bot/5",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:10",
+          "error": null
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "success",
+          "posted_url": "https://gist.github.com/Karan-parmar-007/583b0777a607f91451188ba97a2ca0b4",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:12",
+          "error": null
+        },
+        {
+          "platform": "DEV Community",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Rate limit exceeded: retry after 300s."
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:40:10,184 INFO app.services.content_service: LLM gemini metadata: title='Automate Your Social Media Workflow Today' hashtags=['SocialMedia', 'WorkflowAutomation', 'ProductivityHacks']",
+    "2026-11-17 07:40:10,681 WARNING app.platforms.base: DEV Community failed: Rate limit exceeded: retry after 300s.",
+    "2026-11-17 07:40:11,085 WARNING app.platforms.base: Bluesky failed: Authentication failed: AuthenticationRequired: Invalid identifier or password",
+    "2026-11-17 07:40:12,511 INFO app.services.posting_service: Posted to 3/5 platforms in 4.80s (LLM: gemini)"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "scenario": "02-fail-mastodon",
+  "description": "Mastodon: invalid access token",
+  "broken_settings": [
+    "MASTODON_ACCESS_TOKEN"
+  ],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "Free webinar this Friday on building fast APIs with Python and FastAPI. Save your seat: https://example.com/webinar"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Authentication failed: The access token is invalid"
+        },
+        {
+          "platform": "Bluesky",
+          "status": "success",
+          "posted_url": "https://bsky.app/profile/karansp.bsky.social/post/3n2ikecyjxc2g",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:45:38",
+          "error": null
+        },
+        {
+          "platform": "Telegram",
+          "status": "success",
+          "posted_url": "https://t.me/utopost_bot/8",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:45:38",
+          "error": null
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "success",
+          "posted_url": "https://gist.github.com/Karan-parmar-007/3f7196272fb21e171dd486454728bc3f",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:45:39",
+          "error": null
+        },
+        {
+          "platform": "DEV Community",
+          "status": "success",
+          "posted_url": "https://dev.to/karan_parmar_3f59dae0251e/build-fast-apis-with-python-and-fastapi-1499",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:45:38",
+          "error": null
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:45:37,487 INFO app.services.content_service: LLM gemini metadata: title='Build Fast APIs with Python and FastAPI' hashtags=['Python', 'FastAPI', 'WebDev', 'CodingWebinar']",
+    "2026-11-17 07:45:37,812 WARNING app.platforms.base: Mastodon failed: Authentication failed: The access token is invalid",
+    "2026-11-17 07:45:39,730 INFO app.services.posting_service: Posted to 4/5 platforms in 7.84s (LLM: gemini)"
+  ]
+}

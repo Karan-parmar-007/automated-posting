@@ -1,0 +1,192 @@
+[
+  {
+    "case": "Message longer than 200 characters",
+    "request": {
+      "message": "Our platform helps you grow. Our platform helps you grow. Our platform helps you grow. Our platform helps you grow. Our platform helps you grow. Our platform helps you grow. Our platform helps you grow. https://example.com"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Message must not exceed 200 characters (got 222)."
+        }
+      ]
+    }
+  },
+  {
+    "case": "No link",
+    "request": {
+      "message": "Check out our latest business platform and grow your online visibility."
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Message must contain exactly one CTA link (found 0)."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Two links",
+    "request": {
+      "message": "Visit https://example.com and also https://example.org today"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Message must contain exactly one CTA link (found 2)."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Link without http(s) scheme",
+    "request": {
+      "message": "Visit our site www.example.com today"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must start with http:// or https:// (got 'www.example.com')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Localhost is not a public domain",
+    "request": {
+      "message": "Try the demo at http://localhost:8000/demo"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must use a valid public domain name (got 'http://localhost:8000/demo')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "IP address instead of domain",
+    "request": {
+      "message": "Open http://192.168.1.10/admin for the offer"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must use a valid public domain name (got 'http://192.168.1.10/admin')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Invalid characters in host",
+    "request": {
+      "message": "Visit https://exa_mple!.com now"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must use a valid public domain name (got 'https://exa_mple!.com')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Hyphen at label edge",
+    "request": {
+      "message": "Visit https://-bad-.com now"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must use a valid public domain name (got 'https://-bad-.com')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Invalid top-level domain",
+    "request": {
+      "message": "Visit https://example.c0m now"
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "CTA link must use a valid public domain name (got 'https://example.c0m')."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Empty message",
+    "request": {
+      "message": "   "
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Message must not be empty."
+        }
+      ]
+    }
+  },
+  {
+    "case": "Missing message field",
+    "request": {},
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Field required"
+        }
+      ]
+    }
+  },
+  {
+    "case": "Wrong type",
+    "request": {
+      "message": 12345
+    },
+    "status_code": 422,
+    "response": {
+      "success": false,
+      "errors": [
+        {
+          "field": "message",
+          "message": "Input should be a valid string"
+        }
+      ]
+    }
+  }
+]

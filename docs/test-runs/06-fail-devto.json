@@ -1,0 +1,72 @@
+{
+  "scenario": "06-fail-devto",
+  "description": "DEV Community: invalid API key",
+  "broken_settings": [
+    "DEVTO_API_KEY"
+  ],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "Tips for writing clean Python: small functions, clear names and good tests. More at https://example.com/python-tips"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "success",
+          "posted_url": "https://mastodon.social/@karansp/117630646504990895",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:24",
+          "error": null
+        },
+        {
+          "platform": "Bluesky",
+          "status": "success",
+          "posted_url": "https://bsky.app/profile/karansp.bsky.social/post/3n2ik2x2tka2o",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:25",
+          "error": null
+        },
+        {
+          "platform": "Telegram",
+          "status": "success",
+          "posted_url": "https://t.me/utopost_bot/7",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:24",
+          "error": null
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "success",
+          "posted_url": "https://gist.github.com/Karan-parmar-007/3d8b0e237b98f55e5f98bbc2901eb3cc",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:25",
+          "error": null
+        },
+        {
+          "platform": "DEV Community",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Authentication failed: unauthorized (check DEVTO_API_KEY)"
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:40:24,156 INFO app.services.content_service: LLM gemini metadata: title='Mastering Clean Python Code' hashtags=['PythonProgramming', 'CleanCode', 'CodingTips']",
+    "2026-11-17 07:40:24,680 WARNING app.platforms.base: DEV Community failed: Authentication failed: unauthorized (check DEVTO_API_KEY)",
+    "2026-11-17 07:40:24,168 INFO app.services.posting_service: Posted to 4/5 platforms in 3.02s (LLM: gemini)"
+  ]
+}

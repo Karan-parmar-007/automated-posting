@@ -1,0 +1,73 @@
+{
+  "scenario": "05-fail-github",
+  "description": "GitHub Gist: bad credentials",
+  "broken_settings": [
+    "GITHUB_TOKEN"
+  ],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "New case study: how a local bakery doubled online orders in three months. Full story https://example.com/case-study"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "success",
+          "posted_url": "https://mastodon.social/@karansp/117630646264892675",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:20",
+          "error": null
+        },
+        {
+          "platform": "Bluesky",
+          "status": "success",
+          "posted_url": "https://bsky.app/profile/karansp.bsky.social/post/3n2ik2tbpje22",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:21",
+          "error": null
+        },
+        {
+          "platform": "Telegram",
+          "status": "success",
+          "posted_url": "https://t.me/utopost_bot/6",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:20",
+          "error": null
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Authentication failed: Bad credentials (check GITHUB_TOKEN)"
+        },
+        {
+          "platform": "DEV Community",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Rate limit exceeded: retry after 300s."
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:40:20,022 INFO app.services.content_service: LLM gemini metadata: title='How a Local Bakery Doubled Online Orders in Three Months' hashtags=['LocalBakery', 'BusinessGrowth', 'EcommerceSuccess']",
+    "2026-11-17 07:40:20,381 WARNING app.platforms.base: GitHub Gist failed: Authentication failed: Bad credentials (check GITHUB_TOKEN)",
+    "2026-11-17 07:40:20,486 WARNING app.platforms.base: DEV Community failed: Rate limit exceeded: retry after 300s.",
+    "2026-11-17 07:40:21,719 INFO app.services.posting_service: Posted to 3/5 platforms in 2.63s (LLM: gemini)"
+  ]
+}

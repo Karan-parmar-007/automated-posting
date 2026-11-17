@@ -1,0 +1,73 @@
+{
+  "scenario": "04-fail-telegram",
+  "description": "Telegram: revoked/invalid bot token",
+  "broken_settings": [
+    "TELEGRAM_BOT_TOKEN"
+  ],
+  "request": {
+    "method": "POST",
+    "url": "/posting",
+    "body": {
+      "message": "Our customer support is now available 24/7 through live chat. Try it today at https://example.com/support"
+    }
+  },
+  "response": {
+    "status_code": 200,
+    "body": {
+      "success": true,
+      "results": [
+        {
+          "platform": "Mastodon",
+          "status": "success",
+          "posted_url": "https://mastodon.social/@karansp/117630645975773946",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:15",
+          "error": null
+        },
+        {
+          "platform": "Bluesky",
+          "status": "success",
+          "posted_url": "https://bsky.app/profile/karansp.bsky.social/post/3n2ik2p5rhz2x",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:16",
+          "error": null
+        },
+        {
+          "platform": "Telegram",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Authentication failed: Unauthorized (check TELEGRAM_BOT_TOKEN)"
+        },
+        {
+          "platform": "GitHub Gist",
+          "status": "success",
+          "posted_url": "https://gist.github.com/Karan-parmar-007/6c73cb4fa66b880e1cf8bce59544f718",
+          "public_access": true,
+          "date": "2026-11-17",
+          "time": "07:40:16",
+          "error": null
+        },
+        {
+          "platform": "DEV Community",
+          "status": "failed",
+          "posted_url": null,
+          "public_access": false,
+          "date": null,
+          "time": null,
+          "error": "Rate limit exceeded: retry after 300s."
+        }
+      ]
+    }
+  },
+  "server_log": [
+    "2026-11-17 07:40:15,210 INFO app.services.content_service: LLM gemini metadata: title='Always Here For You With 24/7 Live Support' hashtags=['CustomerSupport', 'LiveChat', 'AlwaysOpen']",
+    "2026-11-17 07:40:15,680 WARNING app.platforms.base: DEV Community failed: Rate limit exceeded: retry after 300s.",
+    "2026-11-17 07:40:15,770 WARNING app.platforms.base: Telegram failed: Authentication failed: Unauthorized (check TELEGRAM_BOT_TOKEN)",
+    "2026-11-17 07:40:17,410 INFO app.services.posting_service: Posted to 3/5 platforms in 3.13s (LLM: gemini)"
+  ]
+}
